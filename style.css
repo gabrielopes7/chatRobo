@@ -36,6 +36,15 @@ h1{
     align-items: flex-end;
 }
 
+.textoUser{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
 .fotoRobo{ 
     background-color: gray;
     width: 40px;
