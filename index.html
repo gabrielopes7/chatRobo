@@ -12,11 +12,27 @@
     
     <div id="corpoPrincipal">
         <div id="title">Robô maluco</div>
-        <!-- <div id="textoRobo">
-            <div id="fotoRobo"></div>
-            <div id="balaoFala">Olá, como podemos ajudar?</div>
-        </div> -->
-        <button onclick="iniciar()" id="botaoIniciar">INICIAR</button>
+        <div class="textoRobo">
+            <div class="fotoRobo"></div>
+            <div class="balaoFala">Olá, como podemos ajudar?</div>
+            <div class="hora"></div>
+        </div>
+        <div class="textoRobo">
+            <div class="fotoRobo"></div>
+            <div class="balaoFala">
+            O que você deseja ? <br>
+            1 - Dê me uma saudação. <br>
+            2 - Me recomende um livro. <br>
+            3 - Me recomende uma série. <br>
+            </div>
+
+            
+            <div class="hora"></div>
+        </div>
+    </div>
+    <div id="caixaUser">
+        <input type="text" name="user" id="user" placeholder="Faça uma pergunta" onkeyup="enter(event)">
+
     </div>
 
 
