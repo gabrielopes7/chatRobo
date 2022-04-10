@@ -13,6 +13,45 @@ function horaMensagem(h, m) {
   }
 }
 
+function criarBaloes(){
+  let textoUser = document.createElement("div");
+  let textoRobo = document.createElement("div");
+  let fotoRobo = document.createElement("div");
+  let divUser = document.createElement("div");
+  let divRobo = document.createElement("div");
+  let divHoraUser = document.createElement("div");
+  let divHoraRobo = document.createElement("div");
+  let corpoChat = document.getElementById("corpoPrincipal");
+
+  textoUser.setAttribute("class", "textoUser");
+  textoRobo.setAttribute("class", "textoRobo");
+  fotoRobo.setAttribute("class", "fotoRobo");
+  divUser.setAttribute("class", "balaoFala");
+  divRobo.setAttribute("class", "balaoFala");
+
+  divHoraUser.setAttribute("class", "hora");
+  divHoraRobo.setAttribute("class", "hora")
+
+  corpoChat.appendChild(textoUser);
+  textoUser.appendChild(divUser);
+  textoUser.appendChild(divHoraUser);
+  
+
+  setTimeout(() => {
+    corpoChat.appendChild(textoRobo);
+    textoRobo.appendChild(fotoRobo);
+    textoRobo.appendChild(divRobo);
+    textoRobo.appendChild(divHoraRobo);
+  },30);
+
+  setTimeout(() => {
+    horaMensagem(horaAtual, minutoAtual)
+  },40);
+
+  return [divUser, divRobo];
+  
+}
+
 
 function enter(e) {
   
@@ -23,80 +62,28 @@ function enter(e) {
       alert("Escolha uma opção");
       msgUser.focus
     } else {
+      let chamaFuncao = criarBaloes();
+
       switch (msgUser) {
         case "1":
-          let textoUser = document.createElement("div");
-          let textoRobo = document.createElement("div");
-          let fotoRobo = document.createElement("div");
-          let divUser = document.createElement("div");
-          let divRobo = document.createElement("div");
-          let divHoraUser = document.createElement("div");
-          let divHoraRobo = document.createElement("div");
-          let corpoChat = document.getElementById("corpoPrincipal");
 
-          textoUser.setAttribute("class", "textoUser");
-          textoRobo.setAttribute("class", "textoRobo");
-          fotoRobo.setAttribute("class", "fotoRobo");
-          divUser.setAttribute("class", "balaoFala");
-          divRobo.setAttribute("class", "balaoFala");
-
-          divHoraUser.setAttribute("class", "hora");
-          divHoraRobo.setAttribute("class", "hora")
-
-          corpoChat.appendChild(textoUser);
-          textoUser.appendChild(divUser);
-          textoUser.appendChild(divHoraUser);
-          
-
-          setTimeout(() => {
-            corpoChat.appendChild(textoRobo);
-            textoRobo.appendChild(fotoRobo);
-            textoRobo.appendChild(divRobo);
-            textoRobo.appendChild(divHoraRobo);
-          },30);
-          
-          
-          
-          
           if(horaAtual >= 0 && horaAtual <= 12){
-            divUser.innerText = "Bom dia!";
-            divRobo.innerText = "Bom dia!";
+            chamaFuncao[0].innerText = "Bom dia!";
+            chamaFuncao[1].innerText = "Bom dia!";
+            
           } else if (horaAtual > 17 && horaAtual <= 23){
-            divUser.innerText = "Boa noite!"
-            divRobo.innerText = "Boa noite!";
+            chamaFuncao[0].innerText = "Boa noite!";
+            chamaFuncao[1].innerText = "Boa noite!";
+            
           } else{
-            divUser.innerText = "Boa tarde!"
-            divRobo.innerText = "Boa tarde!";
+            chamaFuncao[0].innerText = "Boa tarde!";
+            chamaFuncao[1].innerText = "Boa tarde!";
+            
           }
-          setTimeout(() => {
-            horaMensagem(horaAtual, minutoAtual)
-          },40)
-          break;
+          break; 
         case "2":
-          let textoUser2 = document.createElement("div");
-          let textoRobo2 = document.createElement("div");
-          let fotoRobo2 = document.createElement("div");
-          let divUser2 = document.createElement("div");
-          let divRobo2 = document.createElement("div");
-          let divHoraUser2 = document.createElement("div");
-          let divHoraRobo2 = document.createElement("div");
-          let corpoChat2 = document.getElementById("corpoPrincipal");
+          chamaFuncao[0].innerText = "Recomende-me um livro, por favor!"
 
-          textoUser2.setAttribute("class", "textoUser");
-          textoRobo2.setAttribute("class", "textoRobo");
-          fotoRobo2.setAttribute("class", "fotoRobo");
-          divUser2.setAttribute("class", "balaoFala");
-          divRobo2.setAttribute("class", "balaoFala");
-
-          divUser2.innerText = "Recomende-me um livro, por favor!"
-
-          divHoraUser2.setAttribute("class", "hora");
-          divHoraRobo2.setAttribute("class", "hora")
-
-          corpoChat2.appendChild(textoUser2);
-          textoUser2.appendChild(divUser2);
-          textoUser2.appendChild(divHoraUser2);
-          
           let livros = [
             "Em Busca do Tempo Perdido (1913-1927), de Marcel Proust",
             "Ulysses (1922), de James Joyce",
@@ -110,24 +97,21 @@ function enter(e) {
             "O Apanhador no Campo de Centeio (1945), de J.D. Salinger",
           ]
           
-          divRobo2.innerText = livros[Math.floor(Math.random() * (livros.length))]
-
-          setTimeout(() => {
-            corpoChat2.appendChild(textoRobo2);
-            textoRobo2.appendChild(fotoRobo2);
-            textoRobo2.appendChild(divRobo2);
-            textoRobo2.appendChild(divHoraRobo2);
-          },30);
-          
-          
-          
-
-          setTimeout(() => {
-            horaMensagem(horaAtual, minutoAtual)
-          },40)
+          chamaFuncao[1].innerText = livros[Math.floor(Math.random() * (livros.length))]
           break;
         case "3":
-          console.log("Tô indo");
+          const url = "http://api-public.guidebox.com/v2/";
+          fetch(url)
+            .then((res)=>{
+              return res.json();
+            })
+            .then((data) =>{          // Buscar uma API que faça o uso de catálogo netflix ou prime
+              console.log(data)
+            })
+
+          
+        
+
           break;
         default:
           console.log("Digite o valor correto");
