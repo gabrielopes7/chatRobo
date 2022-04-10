@@ -1,16 +1,21 @@
-let hora = new Date();
-let horaAtual = hora.getHours();
-let minutoAtual = hora.getMinutes();
+function hora(t){
+  let hora = new Date();
+  let horaAtual = hora.getHours();
+  let minutoAtual = hora.getMinutes();
+  return [horaAtual, minutoAtual];
+}
+
+// Devo criar outra função para que eu possa colocar o horário nos balões já criados.
 
 function horaMensagem(h, m) {
   let hora = document.getElementsByClassName("hora");
-  for (let i = 0; i < hora.length; i++) {
+
     if (m < 10) {
-      hora[i].innerHTML = h + ":0" + m;
+      return hora.innerHTML = h + ":0" + m;
     } else {
-      hora[i].innerHTML = h + ":" + m;
+      return hora.innerHTML = h + ":" + m;
     }
-  }
+
 }
 
 function criarBaloes(){
@@ -23,6 +28,8 @@ function criarBaloes(){
   let divHoraRobo = document.createElement("div");
   let corpoChat = document.getElementById("corpoPrincipal");
 
+  let horaMinuto = hora();
+
   textoUser.setAttribute("class", "textoUser");
   textoRobo.setAttribute("class", "textoRobo");
   fotoRobo.setAttribute("class", "fotoRobo");
@@ -30,7 +37,10 @@ function criarBaloes(){
   divRobo.setAttribute("class", "balaoFala");
 
   divHoraUser.setAttribute("class", "hora");
-  divHoraRobo.setAttribute("class", "hora")
+  divHoraRobo.setAttribute("class", "hora");
+
+  divHoraUser.innerHTML =  horaMensagem(horaMinuto[0], horaMinuto[1])
+  divHoraRobo.innerHTML =  horaMensagem(horaMinuto[0], horaMinuto[1])
 
   corpoChat.appendChild(textoUser);
   textoUser.appendChild(divUser);
@@ -45,7 +55,7 @@ function criarBaloes(){
   },30);
 
   setTimeout(() => {
-    horaMensagem(horaAtual, minutoAtual)
+    horaMensagem(horaMinuto[0], horaMinuto[1])
   },40);
 
   return [divUser, divRobo];
@@ -67,11 +77,11 @@ function enter(e) {
       switch (msgUser) {
         case "1":
 
-          if(horaAtual >= 0 && horaAtual <= 12){
+          if(hora[0] >= 0 && hora[0] <= 12){
             chamaFuncao[0].innerText = "Bom dia!";
             chamaFuncao[1].innerText = "Bom dia!";
             
-          } else if (horaAtual > 17 && horaAtual <= 23){
+          } else if (hora[0] > 17 && hora[0] <= 23){
             chamaFuncao[0].innerText = "Boa noite!";
             chamaFuncao[1].innerText = "Boa noite!";
             
@@ -81,6 +91,13 @@ function enter(e) {
             
           }
           break; 
+
+
+
+
+
+
+
         case "2":
           chamaFuncao[0].innerText = "Recomende-me um livro, por favor!"
 
@@ -120,6 +137,5 @@ function enter(e) {
   }
 }
 
-horaMensagem(horaAtual, minutoAtual);
-
 // Próximo passo é buscar uma api de catálogo de séries para poder recomendar uma ao usúario.
+// Os balões criados estão resolvidos, agora falta colocar no balões que já estão
