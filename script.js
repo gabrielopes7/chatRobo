@@ -79,24 +79,25 @@ function enter(e) {
       alert("Escolha uma opção");
       msgUser.focus;
     } else {
-      let chamaFuncao = criarBaloes();
-
       switch (msgUser) {
         case "1":
-          if (hora[0] >= 0 && hora[0] <= 12) {
-            chamaFuncao[0].innerText = "Bom dia!";
-            chamaFuncao[1].innerText = "Bom dia!";
-          } else if (hora[0] > 17 && hora[0] <= 23) {
-            chamaFuncao[0].innerText = "Boa noite!";
-            chamaFuncao[1].innerText = "Boa noite!";
+          let funcaoCase1 = criarBaloes();
+          let pegaHora = hora();
+          if (pegaHora[0] >= 0 && pegaHora[0] <= 12) {
+            funcaoCase1[0].innerText = "Bom dia!";
+            funcaoCase1[1].innerText = "Bom dia!";
+          } else if (pegaHora[0] > 17 && pegaHora[0] <= 23) {
+            funcaoCase1[0].innerText = "Boa noite!";
+            funcaoCase1[1].innerText = "Boa noite!";
           } else {
-            chamaFuncao[0].innerText = "Boa tarde!";
-            chamaFuncao[1].innerText = "Boa tarde!";
+            funcaoCase1[0].innerText = "Boa tarde!";
+            funcaoCase1[1].innerText = "Boa tarde!";
           }
           break;
 
         case "2":
-          chamaFuncao[0].innerText = "Recomende-me um livro, por favor!";
+          let funcaoCase2 = criarBaloes();
+          funcaoCase2[0].innerText = "Recomende-me um livro, por favor!";
 
           let livros = [
             "Em Busca do Tempo Perdido (1913-1927), de Marcel Proust",
@@ -111,18 +112,23 @@ function enter(e) {
             "O Apanhador no Campo de Centeio (1945), de J.D. Salinger",
           ];
 
-          chamaFuncao[1].innerText =
+          funcaoCase2[1].innerText =
             livros[Math.floor(Math.random() * livros.length)];
           break;
+
         case "3":
-          const url = "http://api-public.guidebox.com/v2/";
+
+          const url = "https://api.adviceslip.com/advice";
+
+          
           fetch(url)
-            .then((res) => {
-              return res.json();
-            })
-            .then((data) => {
-              // Buscar uma API que faça o uso de catálogo netflix ou prime
-              console.log(data);
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+              let funcaoCase3 = criarBaloes();
+              funcaoCase3[0].innerText = "Por favor, me recomende um conselho";
+              funcaoCase3[1].innerText = data.slip.advice;
             });
 
           break;
@@ -134,5 +140,3 @@ function enter(e) {
 }
 
 window.onload = horaBalaoInicial();
-
-// Próximo passo é buscar uma api de catálogo de séries para poder recomendar uma ao usúario.
